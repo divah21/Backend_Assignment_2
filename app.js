@@ -7,6 +7,7 @@ import http from "http";
 import { rateLimiter, requestLogger } from "./middlewares/security.js";
 import fixtureRouter from "./routes/fixturesRoutes.js";
 import { PORT } from "./config/env.js";
+import syncTableRouter from "./database/syncTables.js";
 
 const app = express();
 const server = http.createServer(app);
@@ -21,6 +22,7 @@ app.use(requestLogger);
 app.use(rateLimiter);
 
 app.use("/api/v1/fixtures", fixtureRouter);
+app.use("/api/v1/", syncTableRouter);
 
 app.use((req, res, next) => {
   next(createError(404, "API endpoint not found"));
