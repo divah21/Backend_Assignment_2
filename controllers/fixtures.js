@@ -1,8 +1,6 @@
-
 import axios from "axios";
 import { API_SERVICE } from "../config/env.js";
 import Fixture from "../models/Fixture.js";
-
 
 export const getFixtures = async (req, res) => {
   try {
@@ -10,7 +8,6 @@ export const getFixtures = async (req, res) => {
 
     res.status(200).json(response.data);
   } catch (error) {
-
     const status = error.response?.status || 500;
     const message =
       error.response?.data?.detail ||
@@ -31,9 +28,10 @@ export const dumpFixtures = async (req, res) => {
     const fixtures = response.data;
 
     if (!Array.isArray(fixtures)) {
-      return res.status(400).json({ success: false, message: "Invalid fixtures data format" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid fixtures data format" });
     }
-
 
     for (const fixture of fixtures) {
       await Fixture.upsert({
@@ -54,7 +52,9 @@ export const dumpFixtures = async (req, res) => {
       });
     }
 
-    res.status(200).json({ success: true, message: "Fixtures dumped to database" });
+    res
+      .status(200)
+      .json({ success: true, message: "Fixtures dumped to database" });
   } catch (error) {
     const status = error.response?.status || 500;
     const message =
