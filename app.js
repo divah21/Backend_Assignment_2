@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 const startServer = async () => {
   try {
     server.listen(PORT, () => {
-      console.log(` Online Store API is running on http://localhost:${PORT}`);
+      console.log(` Fixtures API is running on http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error("Unable to start server:", error);
